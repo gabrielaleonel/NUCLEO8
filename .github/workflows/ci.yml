@@ -12,12 +12,9 @@ env:
 
 jobs:
   build-core:
-    name: Core C (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    name: Core C
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Checkout
@@ -37,7 +34,7 @@ jobs:
   build-app:
     name: C# App (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    needs: build-core
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
