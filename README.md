@@ -19,24 +19,6 @@ Um **emulador de hardware híbrido** construído com um núcleo de emulação em
 
 Atualmente emula a máquina virtual **CHIP-8** com suporte completo a opcodes, debugger em tempo real, save/load states e renderização cross-platform via Avalonia UI.
 
-## Captura de Tela
-
-<!-- Substitua por um screenshot ou GIF real -->
-<!-- ![Screenshot do NUCLEO8](docs/screenshot.png) -->
-```
-+------------------------------------------+
-| Arquivo  Emulação  Depurar              |
-|------------------------------------------|
-|                                          |
-|    +------------------------------+     |
-|    |                              |     |
-|    |     Display do CHIP-8        |     |
-|    |     64x32 (escala 8x)        |     |
-|    |                              |     |
-|    +------------------------------+     |
-|                                          |
-|    Status: Rodando: teste.ch8      60FPS |
-+------------------------------------------+
 ```
 
 ## Sobre o Projeto
