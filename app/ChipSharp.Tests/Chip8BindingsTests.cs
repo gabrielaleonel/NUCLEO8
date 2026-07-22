@@ -109,13 +109,14 @@ public class Chip8BindingsTests
     public void Key_Input()
     {
         Chip8Native.chip8_key_down(_chip, 0x5);
-        byte[] rom = [0xE5, 0x9E];
+        byte[] rom = [0x65, 0x05, 0xE5, 0x9E];
         var handle = GCHandle.Alloc(rom, GCHandleType.Pinned);
         try
         {
             Chip8Native.chip8_load_rom_data(_chip, handle.AddrOfPinnedObject(), (nuint)rom.Length);
             Chip8Native.chip8_cycle(_chip);
-            Assert.That(Chip8Native.chip8_get_pc(_chip), Is.EqualTo(0x204));
+            Chip8Native.chip8_cycle(_chip);
+            Assert.That(Chip8Native.chip8_get_pc(_chip), Is.EqualTo(0x206));
         }
         finally
         {
