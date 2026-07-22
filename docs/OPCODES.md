@@ -1,6 +1,6 @@
 # CHIP-8 Opcodes Reference
 
-Complete list of all 35 CHIP-8 opcodes implemented in ChipSharp.
+Complete list of all 35 CHIP-8 opcodes implemented in NUCLEO8.
 
 ## Notation
 

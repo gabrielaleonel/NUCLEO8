@@ -1,8 +1,8 @@
-# ChipSharp Architecture
+# NUCLEO8 Architecture
 
 ## Overview
 
-ChipSharp uses a **hybrid architecture** separating the emulation core (C) from the user interface (C#).
+NUCLEO8 uses a **hybrid architecture** separating the emulation core (C) from the user interface (C#).
 
 ```
 ┌─────────────────────────────────────────────────────────┐

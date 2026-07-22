@@ -1,8 +1,8 @@
 <div align="center">
 
-# ChipSharp
+# NUCLEO8
 
-[![CI](https://github.com/yourusername/ChipSharp/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/ChipSharp/actions/workflows/ci.yml)
+[![CI](https://github.com/gabrielaleonel/NUCLEO8/actions/workflows/ci.yml/badge.svg)](https://github.com/gabrielaleonel/NUCLEO8/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
 [![C](https://img.shields.io/badge/Language-C-orange.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
@@ -22,7 +22,7 @@ Atualmente emula a máquina virtual **CHIP-8** com suporte completo a opcodes, d
 ## Captura de Tela
 
 <!-- Substitua por um screenshot ou GIF real -->
-<!-- ![Screenshot do ChipSharp](docs/screenshot.png) -->
+<!-- ![Screenshot do NUCLEO8](docs/screenshot.png) -->
 ```
 +------------------------------------------+
 | Arquivo  Emulação  Depurar              |
@@ -165,7 +165,7 @@ dotnet run
 
 ### Controles
 
-O CHIP-8 usa um teclado hex de 16 teclas. O ChipSharp mapeia para seu teclado:
+O CHIP-8 usa um teclado hex de 16 teclas. O NUCLEO8 mapeia para seu teclado:
 
 ```
 Tecla CHIP-8:    Teclado:
@@ -293,8 +293,8 @@ Contribuições são bem-vindas! Veja como começar:
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/ChipSharp.git
-cd ChipSharp
+git clone https://github.com/gabrielaleonel/NUCLEO8.git
+cd NUCLEO8
 
 # Build completo
 cmake -B build -DBUILD_TESTS=ON
@@ -334,7 +334,7 @@ Currently emulates the **CHIP-8** virtual machine with full opcode support, a re
 ## Screenshot
 
 <!-- Replace with actual screenshot or GIF -->
-<!-- ![ChipSharp Screenshot](docs/screenshot.png) -->
+<!-- ![NUCLEO8 Screenshot](docs/screenshot.png) -->
 ```
 +------------------------------------------+
 | File  Emulation  Debug                  |
@@ -475,7 +475,7 @@ dotnet run
 
 ### Controls
 
-The CHIP-8 uses a 16-key hex keypad. ChipSharp maps it to your keyboard:
+The CHIP-8 uses a 16-key hex keypad. NUCLEO8 maps it to your keyboard:
 
 ```
 CHIP-8 Key:    Keyboard:
@@ -603,8 +603,8 @@ Contributions are welcome! Here's how to get started:
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/ChipSharp.git
-cd ChipSharp
+git clone https://github.com/gabrielaleonel/NUCLEO8.git
+cd NUCLEO8
 
 # Build everything
 cmake -B build -DBUILD_TESTS=ON

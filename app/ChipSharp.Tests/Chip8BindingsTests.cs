@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using ChipSharp.Bindings;
 using NUnit.Framework;
 

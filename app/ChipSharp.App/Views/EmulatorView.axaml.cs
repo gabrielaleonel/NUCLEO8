@@ -3,12 +3,13 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using System;
 using System.IO;
 
 namespace ChipSharp.App.Views;
 
-public partial class EmulatorView : UserControl
+public unsafe partial class EmulatorView : UserControl
 {
     private WriteableBitmap? _bitmap;
     private readonly int _scale = 8;
@@ -24,68 +25,64 @@ public partial class EmulatorView : UserControl
         {
             _bitmap = new WriteableBitmap(
                 new PixelSize(width, height),
-                new Vector(96, 96),
-                Avalonia.Platform.Storage.StoragePixelFormat.Bgra8888);
+                new Vector(96, 96));
         }
 
-        using var locked = _bitmap.Lock();
-        var span = locked.Span;
-        int stride = locked.RowBytes;
-
-        for (int y = 0; y < height; y++)
+        using (var locked = _bitmap.Lock())
         {
-            for (int x = 0; x < width; x++)
-            {
-                int fbIndex = y * width + x;
-                bool pixelOn = framebuffer[fbIndex] != 0;
+            byte* ptr = (byte*)locked.Address;
+            int stride = locked.RowBytes;
 
-                int pixelOffset = y * stride + x * 4;
-                if (pixelOffset + 3 < span.Length)
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
                 {
+                    int fbIndex = y * width + x;
+                    bool pixelOn = framebuffer[fbIndex] != 0;
+
+                    int pixelOffset = y * stride + x * 4;
                     byte color = pixelOn ? (byte)0xE0 : (byte)0x10;
-                    span[pixelOffset + 0] = color;       // B
-                    span[pixelOffset + 1] = color;       // G
-                    span[pixelOffset + 2] = (byte)(color + 0x20); // R
-                    span[pixelOffset + 3] = 255;         // A
+                    ptr[pixelOffset + 0] = color;
+                    ptr[pixelOffset + 1] = color;
+                    ptr[pixelOffset + 2] = (byte)(color + 0x20);
+                    ptr[pixelOffset + 3] = 255;
                 }
             }
         }
 
         var scaledBitmap = new WriteableBitmap(
             new PixelSize(width * _scale, height * _scale),
-            new Vector(96, 96),
-            Avalonia.Platform.Storage.StoragePixelFormat.Bgra8888);
+            new Vector(96, 96));
 
-        using var srcLocked = _bitmap.Lock();
-        using var dstLocked = scaledBitmap.Lock();
-        var srcSpan = srcLocked.Span;
-        var dstSpan = dstLocked.Span;
-        int srcStride = srcLocked.RowBytes;
-        int dstStride = dstLocked.RowBytes;
-
-        for (int sy = 0; sy < height; sy++)
+        using (var srcLocked = _bitmap.Lock())
+        using (var dstLocked = scaledBitmap.Lock())
         {
-            for (int sx = 0; sx < width; sx++)
-            {
-                int srcOffset = sy * srcStride + sx * 4;
-                byte b = srcSpan[srcOffset];
-                byte g = srcSpan[srcOffset + 1];
-                byte r = srcSpan[srcOffset + 2];
-                byte a = srcSpan[srcOffset + 3];
+            byte* srcPtr = (byte*)srcLocked.Address;
+            byte* dstPtr = (byte*)dstLocked.Address;
+            int srcStride = srcLocked.RowBytes;
+            int dstStride = dstLocked.RowBytes;
 
-                for (int dy = 0; dy < _scale; dy++)
+            for (int sy = 0; sy < height; sy++)
+            {
+                for (int sx = 0; sx < width; sx++)
                 {
-                    for (int dx = 0; dx < _scale; dx++)
+                    int srcOffset = sy * srcStride + sx * 4;
+                    byte b = srcPtr[srcOffset];
+                    byte g = srcPtr[srcOffset + 1];
+                    byte r = srcPtr[srcOffset + 2];
+                    byte a = srcPtr[srcOffset + 3];
+
+                    for (int dy = 0; dy < _scale; dy++)
                     {
-                        int dstX = sx * _scale + dx;
-                        int dstY = sy * _scale + dy;
-                        int dstOffset = dstY * dstStride + dstX * 4;
-                        if (dstOffset + 3 < dstSpan.Length)
+                        for (int dx = 0; dx < _scale; dx++)
                         {
-                            dstSpan[dstOffset + 0] = b;
-                            dstSpan[dstOffset + 1] = g;
-                            dstSpan[dstOffset + 2] = r;
-                            dstSpan[dstOffset + 3] = a;
+                            int dstX = sx * _scale + dx;
+                            int dstY = sy * _scale + dy;
+                            int dstOffset = dstY * dstStride + dstX * 4;
+                            dstPtr[dstOffset + 0] = b;
+                            dstPtr[dstOffset + 1] = g;
+                            dstPtr[dstOffset + 2] = r;
+                            dstPtr[dstOffset + 3] = a;
                         }
                     }
                 }
