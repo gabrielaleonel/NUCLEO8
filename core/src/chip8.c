@@ -73,10 +73,14 @@ int chip8_load_rom_data(chip8_t *chip, const uint8_t *data, size_t size) {
 
 void chip8_cycle(chip8_t *chip) {
     if (!chip) return;
-    cpu_handle_key_wait(chip);
-    if (!chip->wait_for_key) {
-        cpu_cycle(chip);
+    if (chip->wait_for_key) {
+        cpu_handle_key_wait(chip);
+        if (!chip->wait_for_key) {
+            chip->pc += 2;
+        }
+        return;
     }
+    cpu_cycle(chip);
 }
 
 void chip8_tick_timers(chip8_t *chip) {

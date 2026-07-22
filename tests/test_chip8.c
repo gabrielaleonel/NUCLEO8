@@ -46,11 +46,11 @@ void test_init_fontset_loaded(void) {
     TEST_ASSERT_EQUAL_UINT8(0xF0, chip8_get_memory(chip, 0x004));
 
     /* Font for 'A' is F0 90 F0 90 90 */
-    TEST_ASSERT_EQUAL_UINT8(0xF0, chip8_get_memory(chip, 0x028));
-    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x029));
-    TEST_ASSERT_EQUAL_UINT8(0xF0, chip8_get_memory(chip, 0x02A));
-    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x02B));
-    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x02C));
+    TEST_ASSERT_EQUAL_UINT8(0xF0, chip8_get_memory(chip, 0x032));
+    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x033));
+    TEST_ASSERT_EQUAL_UINT8(0xF0, chip8_get_memory(chip, 0x034));
+    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x035));
+    TEST_ASSERT_EQUAL_UINT8(0x90, chip8_get_memory(chip, 0x036));
 }
 
 void test_init_running(void) {
@@ -308,10 +308,10 @@ void test_opcode_3xnn_skip(void) {
 }
 
 void test_opcode_4xnn_skip(void) {
-    uint8_t rom[] = { 0x60, 0x42, 0x40, 0x42, 0x60, 0x00 };
+    uint8_t rom[] = { 0x60, 0x42, 0x40, 0x99, 0x60, 0x00 };
     chip8_load_rom_data(chip, rom, sizeof(rom));
     chip8_cycle(chip); /* LD V0, 0x42 */
-    chip8_cycle(chip); /* SNE V0, 0x42 -> skip next */
+    chip8_cycle(chip); /* SNE V0, 0x99 -> skip since 0x42 != 0x99 */
     chip8_cycle(chip); /* should be at 0x206 now */
     TEST_ASSERT_EQUAL_UINT8(0x42, chip8_get_register(chip, 0));
 }
@@ -353,11 +353,11 @@ void test_delay_timer_tick(void) {
 
 void test_key_input(void) {
     chip8_key_down(chip, 0x5);
-    uint8_t rom[] = { 0xE5, 0x9E };
+    uint8_t rom[] = { 0x65, 0x05, 0xE5, 0x9E };
     chip8_load_rom_data(chip, rom, sizeof(rom));
+    chip8_cycle(chip); /* LD V5, 5 */
     chip8_cycle(chip); /* SKP V5 */
-    /* PC should have skipped: 0x202 -> 0x204 */
-    TEST_ASSERT_EQUAL_UINT16(0x204, chip8_get_pc(chip));
+    TEST_ASSERT_EQUAL_UINT16(0x206, chip8_get_pc(chip));
 }
 
 void test_key_not_pressed(void) {

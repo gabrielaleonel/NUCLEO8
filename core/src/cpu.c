@@ -192,6 +192,7 @@ void cpu_cycle(chip8_t *chip) {
                 case 0x0A:
                     chip->wait_for_key = true;
                     chip->wait_key_register = x;
+                    chip->pc -= 2;
                     break;
                 case 0x15:
                     chip->delay_timer = chip->v[x];
