@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ChipSharp.App.Views.DebugView"
+             Background="#16213e" Padding="10">
+
+    <ScrollViewer>
+        <StackPanel Spacing="8">
+
+            <TextBlock Text="DEBUGGER" FontWeight="Bold" FontSize="14"
+                       Foreground="#e94560" Margin="0,0,0,4" />
+
+            <!-- Registers -->
+            <Border Background="#1a1a2e" CornerRadius="4" Padding="8">
+                <StackPanel>
+                    <TextBlock Text="Registers" FontWeight="Bold" Foreground="#0f3460"
+                               Margin="0,0,0,4" />
+                    <TextBlock x:Name="RegisterText" Text="V0: --  V1: --  V2: --  V3: --"
+                               Foreground="#a0a0b0" FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="RegisterText2" Text="V4: --  V5: --  V6: --  V7: --"
+                               Foreground="#a0a0b0" FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="RegisterText3" Text="V8: --  V9: --  VA: --  VB: --"
+                               Foreground="#a0a0b0" FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="RegisterText4" Text="VC: --  VD: --  VE: --  VF: --"
+                               Foreground="#a0a0b0" FontFamily="Consolas" FontSize="11" />
+                </StackPanel>
+            </Border>
+
+            <!-- State -->
+            <Border Background="#1a1a2e" CornerRadius="4" Padding="8">
+                <StackPanel>
+                    <TextBlock Text="State" FontWeight="Bold" Foreground="#0f3460"
+                               Margin="0,0,0,4" />
+                    <TextBlock x:Name="PcText" Text="PC: ----" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="IndexText" Text="I:  ----" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="SpText" Text="SP: --" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="DelayText" Text="Delay: --" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" />
+                    <TextBlock x:Name="SoundText" Text="Sound: --" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" />
+                </StackPanel>
+            </Border>
+
+            <!-- Stack -->
+            <Border Background="#1a1a2e" CornerRadius="4" Padding="8">
+                <StackPanel>
+                    <TextBlock Text="Stack" FontWeight="Bold" Foreground="#0f3460"
+                               Margin="0,0,0,4" />
+                    <TextBlock x:Name="StackText" Text="(empty)" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <!-- Memory (first 16 bytes at PC) -->
+            <Border Background="#1a1a2e" CornerRadius="4" Padding="8">
+                <StackPanel>
+                    <TextBlock Text="Memory @ PC" FontWeight="Bold" Foreground="#0f3460"
+                               Margin="0,0,0,4" />
+                    <TextBlock x:Name="MemoryText" Text="----" Foreground="#a0a0b0"
+                               FontFamily="Consolas" FontSize="11" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

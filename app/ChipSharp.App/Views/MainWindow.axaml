@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:ChipSharp.App.Views"
+        x:Class="ChipSharp.App.Views.MainWindow"
+        Title="ChipSharp - CHIP-8 Emulator"
+        Width="900" Height="650"
+        MinWidth="600" MinHeight="450"
+        Background="#1a1a2e">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0" Background="#16213e">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open ROM..." Click="OnOpenRom" />
+                <Separator />
+                <MenuItem Header="_Save State" Click="OnSaveState" />
+                <MenuItem Header="_Load State" Click="OnLoadState" />
+                <Separator />
+                <MenuItem Header="E_xit" Click="OnExit" />
+            </MenuItem>
+            <MenuItem Header="_Emulation">
+                <MenuItem Header="_Pause/Resume" Click="OnPauseResume" />
+                <MenuItem Header="_Reset" Click="OnReset" />
+            </MenuItem>
+            <MenuItem Header="_Debug">
+                <MenuItem Header="Toggle _Debugger" Click="OnToggleDebug" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Content -->
+        <Panel Grid.Row="1">
+            <!-- Emulator Display -->
+            <views:EmulatorView x:Name="EmulatorView" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+            <!-- Debug Panel (Right Side) -->
+            <views:DebugView x:Name="DebugView" IsVisible="False"
+                             Width="300" HorizontalAlignment="Right"
+                             Background="#16213e" />
+        </Panel>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#0f3460" Padding="8,4">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock x:Name="StatusText" Grid.Column="0"
+                           Text="Ready - Open a ROM to start"
+                           Foreground="#a0a0b0" VerticalAlignment="Center" />
+                <TextBlock x:Name="FpsText" Grid.Column="1"
+                           Text=""
+                           Foreground="#a0a0b0" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

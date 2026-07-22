@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ChipSharp.App.Views.EmulatorView">
+
+    <Border Background="#000000" BorderBrush="#333366" BorderThickness="2" CornerRadius="4">
+        <Canvas x:Name="DisplayCanvas" Width="512" Height="256" ClipToBounds="True" />
+    </Border>
+
+</UserControl>
